@@ -45,4 +45,5 @@ pnpm:
 
 ## ENV variables (we know it is a security issue, but we trust the judges :D)
 ```VITE_SUPABASE_SERVICE_KEY: ```
+
 ```VITE_SUPABASE_URL: ```
