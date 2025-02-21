@@ -50,6 +50,6 @@ pnpm:
 
 ## ENV variables (we know it is a security issue, but we trust the judges :D)
 
-`VITE_SUPABASE_SERVICE_KEY: `
+`VITE_SUPABASE_SERVICE_KEY: https://ifzewqgrvqgiuvmceiwy.supabase.co`
 
-`VITE_SUPABASE_URL: `
+`VITE_SUPABASE_URL: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmemV3cWdydnFnaXV2bWNlaXd5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDE2NTQyMCwiZXhwIjoyMDU1NzQxNDIwfQ.839jT2qrhz3uIqgEyFgzKS24lxuBFtVqFHerBspRdAY`
