@@ -1,42 +1,44 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import 'tailwindcss';
+
+:root {
+	--primary-color: #1d4ed8; /* Blue 600 */
+	--secondary-color: #9333ea; /* Purple 600 */
+	--accent-color: #f59e0b; /* Amber 500 */
+	--background-color: #f3f4f6; /* Gray 100 */
+	--text-color: #111827; /* Gray 900 */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@layer base {
+	/* Applying custom colors globally */
+	body {
+		background-color: var(--background-color);
+		color: var(--text-color);
+	}
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Add custom theme colors to Tailwind's configuration */
+@layer components {
+	.btn-primary {
+		background-color: var(--primary-color);
+		color: white;
+		border-radius: 0.375rem;
+		padding: 0.5rem 1rem;
+		font-weight: 600;
+	}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+	.btn-secondary {
+		background-color: var(--secondary-color);
+		color: white;
+		border-radius: 0.375rem;
+		padding: 0.5rem 1rem;
+		font-weight: 600;
+	}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+	.btn-accent {
+		background-color: var(--accent-color);
+		color: white;
+		border-radius: 0.375rem;
+		padding: 0.5rem 1rem;
+		font-weight: 600;
+	}
 }
