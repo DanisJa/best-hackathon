@@ -9,6 +9,7 @@ import Devices from "./components/Devices";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Lights from "./components/Lights";
 import PetCard from "./components/PetCard";
+import Leaderboard from "./components/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/devices" element={<Devices />} />
             <Route path="/lights" element={<Lights />} />
             <Route path="/petcard" element={<PetCard />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
         </Layout>
       </div>
