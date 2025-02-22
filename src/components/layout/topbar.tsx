@@ -1,33 +1,14 @@
-// import React from "react";
-// import { Card } from "../ui/card";
-// import Search from "../ui/search";
-
-// function TopBar() {
-//   return (
-//     <Card className="w-full flex justify-between items-center py-0">
-
-//       {/* <Search /> */}
-//       {/* <p>Zed</p> */}
-//     </Card>
-//   );
-// }
-
-// export default TopBar;
-
 import { Bell } from "lucide-react";
 import { Input } from "../ui/input";
-// import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import LogoutButton from "../LogoutButton";
 import Search from "../ui/search";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navbar() {
   return (
     <Card className="mb-4">
       <div className="container flex items-center justify-between px-4 mx-auto my-2 pr-24">
-        {/* <div className="flex items-center justify-between gap-4"> */}
         <Search />
 
         <Button
@@ -46,8 +27,6 @@ export default function Navbar() {
             <LogoutButton />
           </div>
         </Button>
-
-        {/* </div> */}
       </div>
     </Card>
   );

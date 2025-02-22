@@ -10,54 +10,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-import supabase from "../utils/supabase";
-import { Link, useNavigate } from "react-router";
-import { toast } from "sonner";
+import { Link } from "react-router";
 import { Eye, EyeOff } from "lucide-react"; // Import eye icons from lucide-react
 import { useLogin } from "../hooks/useLogin";
 
 export default function LoginPage() {
-  /*
-  const navigate = useNavigate();
-
-  const [credentials, setCredentials] = useState<{
-    email: string;
-    password: string;
-  }>({ email: "", password: "" });
-  const [rememberMe, setRememberMe] = useState(false);
-  */
   const [showPassword, setShowPassword] = useState(false);
-  /*
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
-    // Attempt to log in with Supabase
-    const { data, error } = await supabase.auth.signInWithPassword(credentials);
-
-    if (error) {
-      console.error(error);
-      toast("Email and password do not match");
-      return;
-    }
-
-    // Show success toast
-    toast("Login successful");
-
-    // Handle "Remember Me" logic
-    if (rememberMe) {
-      // If "Remember Me" is checked, use localStorage
-      localStorage.setItem("sb-auth-token", JSON.stringify(data.session)); // Save session to localStorage
-      localStorage.setItem("sb-user-data", JSON.stringify(data.user)); // Save user data to localStorage
-    } else {
-      // If "Remember Me" is NOT checked, use sessionStorage
-      sessionStorage.setItem("sb-auth-token", JSON.stringify(data.session)); // Save session to sessionStorage
-      sessionStorage.setItem("sb-user-data", JSON.stringify(data.user)); // Save user data to sessionStorage
-    }
-
-    // Navigate to the home page
-    navigate("/home");
-  };
-*/
   const {
     credentials,
     setCredentials,

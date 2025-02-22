@@ -12,6 +12,7 @@ import {
 import supabase from "../utils/supabase";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import { useRegister } from "../hooks/useRegister";
 
 interface FormData {
   email: string;
@@ -20,6 +21,7 @@ interface FormData {
 }
 
 export default function RegisterForm() {
+  /*
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
@@ -89,6 +91,26 @@ export default function RegisterForm() {
     toast("Registration successful! You can now log in.");
     navigate("/");
   };
+*/
+  const navigate = useNavigate();
+  const {
+    formData,
+    showPassword,
+    setShowPassword,
+    handleChange,
+    handleSubmit,
+  } = useRegister();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data.user) {
+        console.log(data.user);
+        navigate("/home");
+      }
+    };
+    getUser();
+  }, [navigate]);
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center">
