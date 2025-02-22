@@ -18,12 +18,13 @@ import { Bell, Search } from "lucide-react";
 import { Input } from "../ui/input";
 // import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navbar() {
   return (
-    <div className="w-full  border-b ">
-      <div className="container flex items-center justify-between h-16 px-4 mx-auto">
+    <Card className="mb-4">
+      <div className="container flex items-center justify-between px-4 mx-auto my-2">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400" />
           <Input
@@ -32,6 +33,7 @@ export default function Navbar() {
             className="w-full pl-10 bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-400 focus-visible:ring-zinc-700"
           />
         </div>
+
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
@@ -50,6 +52,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
