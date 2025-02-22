@@ -19,11 +19,8 @@ import { Input } from "../ui/input";
 // import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
-<<<<<<< HEAD
 import LogoutButton from "../LogoutButton";
-=======
 import Search from "../ui/search";
->>>>>>> f6ed82d69b36fb74774e98cfb3e4c82fddb737d3
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navbar() {
