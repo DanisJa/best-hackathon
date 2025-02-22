@@ -1,10 +1,15 @@
-import { corsHeaders } from '../_shared/cors.ts';
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+export const corsHeaders = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Headers':
+		'authorization, x-client-info, apikey, content-type',
+};
 
 serve(async (req) => {
 	if (req.method === 'OPTIONS') {
@@ -29,10 +34,10 @@ serve(async (req) => {
 			.single();
 
 		if (activityError || !activity) {
-			return new Response(
-				JSON.stringify({ error: 'Invalid or inactive activity' }),
-				{ status: 404 }
-			);
+			return new Response(JSON.stringify({ error: activityError }), {
+				status: 404,
+				headers: corsHeaders,
+			});
 		}
 
 		// Get user XP, level, and points
@@ -45,6 +50,7 @@ serve(async (req) => {
 		if (userError || !user) {
 			return new Response(JSON.stringify({ error: 'User not found' }), {
 				status: 404,
+				headers: corsHeaders,
 			});
 		}
 
@@ -72,6 +78,7 @@ serve(async (req) => {
 		if (updateError) {
 			return new Response(JSON.stringify({ error: 'Failed to update user' }), {
 				status: 500,
+				headers: corsHeaders,
 			});
 		}
 
@@ -87,6 +94,7 @@ serve(async (req) => {
 		if (logError) {
 			return new Response(JSON.stringify({ error: 'Failed to log points' }), {
 				status: 500,
+				headers: corsHeaders,
 			});
 		}
 
@@ -97,7 +105,7 @@ serve(async (req) => {
 				newLevel,
 				points_earned: activity.points_earned,
 			}),
-			{ status: 200 }
+			{ status: 200, headers: corsHeaders }
 		);
 	} catch (error) {
 		return new Response(
@@ -105,7 +113,7 @@ serve(async (req) => {
 				error: 'Internal Server Error',
 				details: error.message,
 			}),
-			{ status: 500 }
+			{ status: 500, headers: corsHeaders }
 		);
 	}
 });

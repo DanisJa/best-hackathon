@@ -1,4 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+	useMutation,
+	useQuery,
+	QueryClient,
+	useQueryClient,
+} from '@tanstack/react-query';
 import supabase from '../utils/supabase';
 import { toast } from 'sonner';
 
@@ -12,13 +17,20 @@ const claimActivity = async (userId: string, activityId: string) => {
 };
 
 const useActivityClaim = (activityId: string, userId: string) => {
+	const queryClient = useQueryClient();
+
 	return useMutation({
 		mutationFn: () => claimActivity(userId, activityId),
 		onSuccess: async () => {
-			await supabase.from('users').update('daily_claimed').eq('id', userId);
+			await supabase
+				.from('users')
+				.update({ daily_claimed: true })
+				.eq('id', userId);
+
+			queryClient.invalidateQueries({ queryKey: ['userData'] });
 		},
 		onError: (error) => {
-			toast(`Error claiming activity: ${error.message}`);
+			toast(`Error claiming activity: ${error}`);
 		},
 	});
 };

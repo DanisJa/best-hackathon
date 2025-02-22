@@ -11,7 +11,7 @@ serve(async () => {
 		const { error } = await supabase
 			.from('users')
 			.update({ daily_claimed: false })
-			.eq('daily_claimed', true);
+			.match({ daily_claimed: true });
 
 		if (error) {
 			console.error('Supabase Error:', error);

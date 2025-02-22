@@ -10,6 +10,7 @@ import {
 } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { useActivityClaim } from '../hooks/ActivityClaim';
+import { useUserData } from '../hooks/User';
 
 interface ActivityCardProps {
 	id: string;
@@ -24,10 +25,11 @@ export default function ActivityCard({
 	description,
 	userId,
 }: ActivityCardProps) {
-	const mutate = useActivityClaim(userId, id);
+	const mutate = useActivityClaim(id, userId);
+	const { data, isLoading } = useUserData();
 
 	return (
-		<Card className="w-[300px]">
+		<Card className="w-[200px] space-x-2">
 			<CardHeader>
 				<CardTitle>{title}</CardTitle>
 			</CardHeader>
@@ -35,13 +37,21 @@ export default function ActivityCard({
 				<CardDescription>{description}</CardDescription>
 			</CardContent>
 			<CardFooter>
-				<Button
-					className="w-full"
-					onClick={() => mutate.mutate()}
-					disabled={mutate.isPending}
-				>
-					{mutate.isPending ? 'CLAIMING...' : 'CLAIM'}
-				</Button>
+				{!isLoading ? (
+					<Button
+						className="w-full"
+						onClick={() => mutate.mutate()}
+						disabled={mutate.isPending || data?.publicUser.daily_claimed}
+					>
+						{mutate.isPending
+							? 'CLAIMING...'
+							: data?.publicUser.daily_claimed
+							? 'CLAIMED.'
+							: 'CLAIM'}
+					</Button>
+				) : (
+					'Loading...'
+				)}
 			</CardFooter>
 		</Card>
 	);
