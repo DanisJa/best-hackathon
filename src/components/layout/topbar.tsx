@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 // import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
+import LogoutButton from "../LogoutButton";
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navbar() {
@@ -49,6 +50,7 @@ export default function Navbar() {
             {/* <AvatarFallback>DN</AvatarFallback> */}
             {/* </Avatar> */}
             <span className="text-sm font-medium text-zinc-100">Hi, Danis</span>
+            <LogoutButton />
           </div>
         </div>
       </div>

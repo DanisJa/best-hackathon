@@ -59,7 +59,7 @@ export default function RegisterForm() {
       .from("users")
       .select("email")
       .eq("email", formData.email)
-      .single();
+      .maybeSingle();
 
     if (emailError) {
       console.error(emailError);
@@ -86,19 +86,8 @@ export default function RegisterForm() {
       return;
     }
 
-    // Insert user into the `users` table
-    const { error: insertError } = await supabase
-      .from("users")
-      .insert([{ id: signUpData.user?.id, email: formData.email }]);
-
-    if (insertError) {
-      console.error(insertError.message);
-      toast("An error occurred during registration. Please try again.");
-      return;
-    }
-
     toast("Registration successful! You can now log in.");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
