@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Lights from "./components/Lights";
 import PetCard from "./components/PetCard";
 import Leaderboard from "./components/Leaderboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // const queryClient = new QueryClient();
 const queryClient = new QueryClient({
@@ -37,7 +38,14 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/devices" element={<Devices />} />
             <Route path="/lights" element={<Lights />} />
             <Route path="/petcard" element={<PetCard />} />
