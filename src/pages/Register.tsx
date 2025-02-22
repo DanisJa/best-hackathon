@@ -34,7 +34,7 @@ export default function RegisterForm() {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
       if (data.user) {
-        navigate("/");
+        navigate("/home");
       }
     };
     getUser();
@@ -91,13 +91,13 @@ export default function RegisterForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto mt-6 rounded-md border-2 border-black-100">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold ">Register</CardTitle>
-        <CardDescription>Create your account today!</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="flex h-screen items-center">
+      <Card className="w-full max-w-md mx-auto  rounded-md border-2 border-black-100 ">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold ">Register</CardTitle>
+          <CardDescription>Create your account today!</CardDescription>
+        </CardHeader>
+        <CardContent>
           <div className="grid gap-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email*</Label>
@@ -135,7 +135,7 @@ export default function RegisterForm() {
                 onChange={handleChange}
               />
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mb-4">
               <input
                 id="showPassword"
                 type="checkbox"
@@ -146,7 +146,7 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          <Button type="submit" variant="defaultLinear" className="w-full">
+          <Button type="submit" variant="defaultLinear" className="w-full mb-2">
             Register
           </Button>
 
@@ -159,8 +159,8 @@ export default function RegisterForm() {
               Login
             </Link>
           </div>
-        </form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </form>
   );
 }

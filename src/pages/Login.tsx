@@ -52,11 +52,14 @@ export default function LoginPage() {
     }
 
     // Navigate to the home page
-    navigate("/");
+    navigate("/home");
   };
 
   return (
-    <form className="flex justify-center mt-20" onSubmit={handleLogin}>
+    <form
+      className="flex justify-center h-screen items-center"
+      onSubmit={handleLogin}
+    >
       <Card className="w-full max-w-md rounded-md border-2 border-black-100">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Login</CardTitle>
@@ -101,7 +104,11 @@ export default function LoginPage() {
                   className="absolute right-3 top-1/2 transform -translate-y-1/2" // Center the eye icon vertically
                   onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}{" "}
+                  {showPassword ? (
+                    <EyeOff size={18} className="text-black" />
+                  ) : (
+                    <Eye size={18} className="text-black" />
+                  )}{" "}
                   {/* Toggle eye icon */}
                 </button>
               </div>

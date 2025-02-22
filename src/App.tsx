@@ -12,11 +12,9 @@ import PetCard from "./components/PetCard";
 import Leaderboard from "./components/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// const queryClient = new QueryClient();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000,
       staleTime: 0,
     },
   },
@@ -26,17 +24,18 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div
-        className="w-screen h-screen  
-      text-white
-    "
+        className="w-screen h-screen text-white"
         style={{
           background: "linear-gradient(45deg, #47554B , #333333)",
         }}
       >
-        <Layout>
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
+        <Routes>
+          {/* Routes outside of Layout */}
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+
+          {/* Routes inside Layout */}
+          <Route element={<Layout />}>
             <Route path="/test" element={<Test />} />
             <Route
               path="/home"
@@ -46,12 +45,40 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/devices" element={<Devices />} />
-            <Route path="/lights" element={<Lights />} />
-            <Route path="/petcard" element={<PetCard />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-          </Routes>
-        </Layout>
+            <Route
+              path="/devices"
+              element={
+                <ProtectedRoute>
+                  <Devices />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/lights"
+              element={
+                <ProtectedRoute>
+                  <Lights />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/petcard"
+              element={
+                <ProtectedRoute>
+                  <PetCard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/leaderboard"
+              element={
+                <ProtectedRoute>
+                  <Leaderboard />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
       </div>
     </QueryClientProvider>
   );
