@@ -22,10 +22,10 @@ function Sidebar() {
         <HighlightedButton linkTo="monitoring">
           <HiOutlineDesktopComputer className="size-6" />
         </HighlightedButton>
-        <HighlightedButton linkTo="rizla">
+        <HighlightedButton linkTo="statistics">
           <HiOutlineNewspaper className="size-6" />
         </HighlightedButton>
-        <HighlightedButton linkTo="tegla">
+        <HighlightedButton linkTo="mypal">
           <HiOutlineSparkles className="size-6" />
         </HighlightedButton>
       </div>
