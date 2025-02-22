@@ -1,10 +1,6 @@
 import React from "react";
-import Logo from "./Logo";
-import HighlightedButton from "./highlightedButton";
-import homeIcon from "../../assets/home.svg";
-import monitoring from "../../assets/monitoring.svg";
-import rizla from "../../assets/rizla.svg";
-import tegla from "../../assets/tegla.svg";
+import Logo from "../ui/logo";
+import HighlightedButton from "../ui/highlightedButton";
 
 import {
   HiOutlineCog,

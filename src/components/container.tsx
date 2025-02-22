@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 function Container({ children }: ContainerProps) {
-  return <div className="flex flex-row">{children}</div>;
+  return <div className="flex">{children}</div>;
 }
 
 export default Container;
