@@ -10,7 +10,7 @@ function Home() {
         <Card className="flex-grow-2">
           <Graph />
         </Card>
-        <Card className="flex-grow">{/* <PetCard /> */}</Card>
+        <Card className="flex-grow">{<PetCard />}</Card>
       </div>
       <div>
         <Devices />

@@ -26,7 +26,8 @@ const PetCard = () => {
   // Get user ID from session or local storage
   const user =
     localStorage.getItem("sb-user-data") ||
-    sessionStorage.getItem("sb-user-data");
+    sessionStorage.getItem("sb-user-data") ||
+    localStorage.getItem("sb-ifzewqgrvqgiuvmceiwy-auth-token");
   const { id: userId } = JSON.parse(user!);
   // Fetch pet data using TanStack Query
   const { data, isLoading, isError } = useQuery({
