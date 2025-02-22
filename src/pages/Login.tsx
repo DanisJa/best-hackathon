@@ -122,10 +122,14 @@ export default function LoginPage() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button variant="outline" className="w-full mt-2">
+          <Button variant="defaultLinear" className="w-full mt-2">
             Login
           </Button>
-          <Button variant="outline" className="w-full mt-2 rounded-md" asChild>
+          <Button
+            variant="defaultGray"
+            className="w-full mt-2 rounded-md"
+            asChild
+          >
             <Link to="/register">Don't have an account? Register</Link>
           </Button>
         </CardFooter>

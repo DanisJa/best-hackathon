@@ -157,13 +157,16 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" variant="defaultLinear" className="w-full">
             Register
           </Button>
 
           <div className="text-sm text-center">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 hover:underline">
+            <Link
+              to="/login"
+              className="bg-gradient-to-r from-[#3DFF94] to-[#B9FF5E] bg-clip-text text-transparent hover:underline"
+            >
               Login
             </Link>
           </div>
