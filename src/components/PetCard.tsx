@@ -48,8 +48,9 @@ const PetCard = () => {
   const progress = roundedExp / 10; // Convert to progress (e.g., 70 => 7)
 
   return (
-    <Card className="p-6 rounded-lg shadow-md max-h-fit max-w-fit text-white flex flex-col">
-      <div className="flex flex-row gap-6">
+    // <Card className="p-6 rounded-lg shadow-md max-h-fit max-w-fit text-white flex flex-col">
+    <>
+      <div className="flex flex-row gap-6 px-4 justify-center">
         <Card className="bg-[#252525] max-w-fit py-4 px-4">
           <MdPets className="text-3xl text-[#3DFF94]" />
         </Card>
@@ -65,8 +66,10 @@ const PetCard = () => {
           <FaHourglassHalf className="text-3xl text-[#3DFF94]" />
         </Card>
       </div>
+
       <img src={bear} alt={bear} className="max-w-[300px] mx-auto" />
-    </Card>
+    </>
+    // </Card>
   );
 };
 

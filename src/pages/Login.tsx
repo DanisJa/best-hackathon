@@ -14,8 +14,10 @@ import supabase from "../utils/supabase";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react"; // Import eye icons from lucide-react
+import { useLogin } from "../hooks/useLogin";
 
 export default function LoginPage() {
+  /*
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState<{
@@ -23,8 +25,9 @@ export default function LoginPage() {
     password: string;
   }>({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
+  */
   const [showPassword, setShowPassword] = useState(false);
-
+  /*
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -54,12 +57,17 @@ export default function LoginPage() {
     // Navigate to the home page
     navigate("/home");
   };
+*/
+  const {
+    credentials,
+    setCredentials,
+    rememberMe,
+    setRememberMe,
+    handleLogin,
+  } = useLogin();
 
   return (
-    <form
-      className="flex justify-center h-screen items-center"
-      onSubmit={handleLogin}
-    >
+    <form className="flex justify-center  items-center" onSubmit={handleLogin}>
       <Card className="w-full max-w-md rounded-md border-2 border-black-100">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Login</CardTitle>

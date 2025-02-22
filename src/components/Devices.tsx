@@ -29,9 +29,18 @@ const iconMap: { [key: number]: React.ElementType } = {
 
 const fetchDevices = async (): Promise<Device[]> => {
   try {
+    const userData =
+      localStorage.getItem("sb-user-data") ||
+      sessionStorage.getItem("sb-user-data");
+    if (!userData) {
+      throw new Error("User data not found in localStorage or sessionStorage");
+    }
+    const user = JSON.parse(userData).id;
+
     const { data, error } = await supabase
       .from("devices")
       .select("*")
+      .eq("user_id", user)
       .order("id", { ascending: true });
     if (error) throw new Error(error.message);
     return data as Device[];

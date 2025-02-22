@@ -91,7 +91,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex h-screen items-center">
+    <form onSubmit={handleSubmit} className="flex items-center">
       <Card className="w-full max-w-md mx-auto  rounded-md border-2 border-black-100 ">
         <CardHeader>
           <CardTitle className="text-2xl font-bold ">Register</CardTitle>

@@ -113,7 +113,7 @@ export default function Graph() {
           data: graphData,
         },
       ]}
-      width={800}
+      width={900}
       height={300}
     />
   );

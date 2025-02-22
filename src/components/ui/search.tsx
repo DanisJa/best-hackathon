@@ -7,7 +7,7 @@ import { Search as Searchh } from "lucide-react";
 function Search() {
   return (
     <div className="relative flex-1 max-w-md">
-      <Searchh className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400" />
+      <Searchh className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400 !py-4" />
       <Input
         type="search"
         placeholder="Search"
