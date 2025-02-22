@@ -1,24 +1,25 @@
 import * as React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { fetchAllLogs } from "../../services/energy-logs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import supabase from "../../utils/supabase";
 
-export default function Graph() {
-  let graphData = [];
-  graphData = Array(9).fill(Math.random() * 1.5);
-  console.log(graphData);
+interface EnergyLog {
+  created_at: string; // or Date if you prefer
+  energy_used: number;
+  // Add any other properties that exist in your log
+}
 
-  const [xLogs, setXLogs] = React.useState([]);
+export default function Graph() {
+  const [xLogs, setXLogs] = React.useState<EnergyLog[]>([]);
 
   React.useEffect(() => {
-    async function subscribeToEngergyLogs() {
+    let channel: ReturnType<typeof supabase.channel>;
+    async function subscribeToEnergyLogs() {
       const user = await supabase.auth.getUser();
       const userID = user.data.user?.id;
+      console.log("UserID:", userID);
 
-      console.log(userID);
-
-      const channels = supabase
+      channel = supabase
         .channel("custom-filter-channel")
         .on(
           "postgres_changes",
@@ -30,86 +31,58 @@ export default function Graph() {
           },
           async (payload) => {
             console.log("Change received!", payload);
-            // queryClient.invalidateQueries({ queryKey: ["energy_logs"] });
-            // refetchEnergyLogs();
-            const podaci = await fetchAllLogs();
-            setXLogs(podaci.data);
+            const logs = await fetchAllLogs();
+            setXLogs(logs.data);
           }
         )
         .subscribe();
 
-      console.log(channels);
+      console.log("Subscribed channel:", channel);
     }
+    subscribeToEnergyLogs();
 
-    subscribeToEngergyLogs();
-  }, [setXLogs]);
+    // Cleanup subscription on unmount
+    return () => {
+      if (channel) {
+        supabase.removeChannel(channel);
+      }
+    };
+  }, []);
 
-  // console.log(
-  const totalEnergyUsedLastHour = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() === new Date().getHours()
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
+  // Get the current time and initialize buckets for the last 8 hours.
+  const now = new Date();
+  const buckets = new Array(8).fill(0);
 
-  const totalEnergyUsedLastTwoHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastThreeHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastFourthHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastFifthHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastSixthHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastSeventhHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
-  const totalEnergyUsedLastEightHours = xLogs.reduce((acc, log) => {
-    return new Date(log.created_at).getHours() - new Date().getHours() == -1
-      ? acc + log.energy_used
-      : acc;
-  }, 0);
+  // Bucket logs based on how many full hours ago they were created.
+  // Bucket index 0 will correspond to (now - 7 hours) and index 7 to the current hour.
+  xLogs.forEach((log) => {
+    const logDate = new Date(log.created_at);
+    const diffHours = Math.floor(
+      (now.getTime() - logDate.getTime()) / (1000 * 60 * 60)
+    );
+    if (diffHours >= 0 && diffHours < 8) {
+      // Using 7 - diffHours so that the earliest hour is at index 0.
+      buckets[7 - diffHours] += log.energy_used;
+    }
+  });
 
-  graphData = [
-    totalEnergyUsedLastEightHours || 0.7,
-    totalEnergyUsedLastSeventhHours || 0.2,
-    totalEnergyUsedLastSixthHours || 0.92,
-    totalEnergyUsedLastFifthHours || 0.4,
-    totalEnergyUsedLastFourthHours || 1.4,
-    totalEnergyUsedLastThreeHours || 1.2,
-    totalEnergyUsedLastTwoHours || 1.1,
-    totalEnergyUsedLastHour || 0.5,
-  ];
+  // Fallback values in case a bucket has no data.
+  const fallbackValues = [0.7, 0.2, 0.92, 0.4, 1.4, 1.2, 1.1, 0.5];
+  const graphData = buckets.map((bucket, index) =>
+    bucket ? bucket : fallbackValues[index]
+  );
 
-  console.log("Total Energy Used:", totalEnergyUsedLastHour);
-
-  // console.log(xLogs);
-
-  // console.log(xLogs);
+  // Create labels for the last 8 hours. We adjust using modulo 24 for proper hour display.
+  const currentHour = now.getHours();
+  const labels = Array.from(
+    { length: 8 },
+    (_, i) => `${(currentHour - 7 + i + 24) % 24}:00`
+  );
 
   function onItemClick(event, d) {
     Array.from(event.target.parentElement.parentElement.children).forEach(
-      (child: HTMLElement) => {
-        const firstChild = Array.from(child.children)[0] as
-          | HTMLElement
-          | undefined;
+      (child) => {
+        const firstChild = Array.from(child.children)[0];
         if (firstChild) {
           firstChild.style.fill = "#535754";
         }
@@ -117,21 +90,6 @@ export default function Graph() {
     );
     event.target.style.fill = "#3DFF94";
   }
-
-  // const now = new Date().now().toHours();
-  const now = new Date().getHours();
-
-  const data = graphData;
-  const labels = [
-    `${now - 7}:00`,
-    `${now - 6}:00`,
-    `${now - 5}:00`,
-    `${now - 4}:00`,
-    `${now - 3}:00`,
-    `${now - 2}:00`,
-    `${now - 1}:00`,
-    `${now}:00`,
-  ];
 
   return (
     <BarChart
