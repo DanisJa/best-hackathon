@@ -1,5 +1,7 @@
 # GreenPals
 
+> NOTE: Registration flow is working, but since we didn't have enough time to implement adding devices through the QR code, please use danisjusic@icloud.com:Test123! credentials to view live energy usage, other features are available with new accounts.
+
 ## Overview
 GreenPals is an application that helps users manage and track his device energy usage, as well as encourage eco-friendly behaviour. To do this, we designed the system software in 2 parts:
 
