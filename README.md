@@ -49,6 +49,7 @@ We also implemented a trigger and a function to help the database update the lev
 
 ## Project Directory Overview
 `/src`: pages, components, mostly regarding frontend
+
 `/supabase`: serverless functions dir, sometimes left out in `.gitignore`, but I kept it here in case of code review, same as `.env`.
 
 # Installation guide
