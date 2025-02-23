@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -26,7 +26,10 @@ export default function LoginPage() {
   } = useLogin();
 
   return (
-    <form className="flex justify-center  items-center" onSubmit={handleLogin}>
+    <form
+      className="flex justify-center  items-center min-h-screen"
+      onSubmit={handleLogin}
+    >
       <Card className="w-full max-w-md rounded-md border-2 border-black-100">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Login</CardTitle>

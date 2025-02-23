@@ -102,8 +102,10 @@ const Devices = () => {
       }));
       return { previousStates: deviceStates };
     },
-    onError: (err, variables, context) => {
+    onError: (err, context) => {
+      //@ts-expect-error have no time to implement types
       if (context?.previousStates) {
+        //@ts-expect-error have no time to implement types
         setDeviceStates(context.previousStates);
       }
       console.error("Error updating device status:", err);

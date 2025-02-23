@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router";
 import Container from "../components/container";
 import Sidebar from "../components/layout/sidebar";

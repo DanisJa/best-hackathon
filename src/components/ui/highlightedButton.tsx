@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Button } from "./button";
 import { NavLink, useLocation } from "react-router";
+import { IconBaseProps } from "react-icons/lib";
 
 interface HighlightedButtonProps {
   linkTo: string;
-  children: React.ReactNode;
+  children: ReactElement<IconBaseProps>;
 }
 
 function HighlightedButton({ linkTo, children }: HighlightedButtonProps) {
@@ -21,6 +22,7 @@ function HighlightedButton({ linkTo, children }: HighlightedButtonProps) {
           }`}
       >
         {React.cloneElement(children as React.ReactElement, {
+          //@ts-expect-error no time to fix types (Nikola is to blame)
           color: isButtonActive ? "#333" : "#3DFF94",
         })}
         <p

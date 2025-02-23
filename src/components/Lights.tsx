@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { IoSunny } from "react-icons/io5";
 
@@ -50,11 +50,11 @@ const Lights = () => {
 
   return (
     <Card className="p-6 rounded-lg shadow-md max-h-fit w-[350px] text-white">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         {lightLevels.map((lightLevel, index) => (
           <div key={index} className="flex items-center justify-around">
             <Card className="bg-[#252525] max-w-fit py-4 px-4">
-              <IoSunny className="text-3xl text-[#3DFF94]" />
+              <IoSunny className="text-xl text-[#3DFF94]" />
             </Card>
             <div className="flex flex-col gap-4">
               <div className="w-full flex justify-between items-center">

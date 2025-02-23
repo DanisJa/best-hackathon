@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -11,14 +11,7 @@ import {
 } from "../components/ui/card";
 import supabase from "../utils/supabase";
 import { Link, useNavigate } from "react-router";
-import { toast } from "sonner";
 import { useRegister } from "../hooks/useRegister";
-
-interface FormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
 export default function RegisterForm() {
   /*
@@ -113,7 +106,7 @@ export default function RegisterForm() {
   }, [navigate]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <form onSubmit={handleSubmit} className="flex items-center min-h-screen">
       <Card className="w-full max-w-md mx-auto  rounded-md border-2 border-black-100 ">
         <CardHeader>
           <CardTitle className="text-2xl font-bold ">Register</CardTitle>

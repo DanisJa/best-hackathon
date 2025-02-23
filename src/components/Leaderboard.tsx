@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent } from "./ui/card";
+import { Card } from "./ui/card";
 import supabase from "../utils/supabase";
 
 interface User {
@@ -13,7 +13,8 @@ const fetchLeaderboard = async (): Promise<User[]> => {
   const { data, error } = await supabase
     .from("users")
     .select("id, email, eco_pet_level, eco_pet_xp")
-    .order("eco_pet_level", { ascending: false });
+    .order("eco_pet_level", { ascending: false })
+    .limit(5);
   if (error) throw new Error(error.message);
   return data || [];
 };
@@ -50,6 +51,7 @@ const Leaderboard = () => {
             <p>2nd</p>
             <p className="text-2xl">🥈</p>
           </div>
+          <p>{users[1]?.email.split("@")[0]}</p>
           <p>Lvl {users[1]?.eco_pet_level ?? 0} </p>
           <p>{users[1]?.eco_pet_xp ?? 0} XP</p>
         </div>
@@ -58,6 +60,7 @@ const Leaderboard = () => {
             <p>1st</p>
             <p className="text-3xl">🥇</p>
           </div>
+          <p>{users[0]?.email.split("@")[0]}</p>
           <p>Lvl {users[0]?.eco_pet_level ?? 0} </p>
           <p>{users[0]?.eco_pet_xp ?? 0} XP</p>
         </div>
@@ -66,6 +69,7 @@ const Leaderboard = () => {
             <p>3rd</p>
             <p className="text-xl">🥉</p>
           </div>
+          <p>{users[2]?.email.split("@")[0]}</p>
           <p>Lvl {users[2]?.eco_pet_level ?? 0} </p>
           <p>{users[2]?.eco_pet_xp ?? 0} XP</p>
         </div>

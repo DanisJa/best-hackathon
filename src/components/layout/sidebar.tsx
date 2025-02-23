@@ -1,5 +1,4 @@
-import React from "react";
-import Logo from "../ui/logo";
+import Logo from "../ui/Logo";
 import HighlightedButton from "../ui/highlightedButton";
 
 import {
@@ -19,7 +18,7 @@ function Sidebar() {
         <HighlightedButton linkTo="home">
           <HiOutlineHome className="size-6" />
         </HighlightedButton>
-        <HighlightedButton linkTo="monitoring">
+        <HighlightedButton linkTo="mypal">
           <HiOutlineDesktopComputer className="size-6" />
         </HighlightedButton>
         <HighlightedButton linkTo="statistics">
@@ -31,10 +30,10 @@ function Sidebar() {
       </div>
 
       <div className="mt-auto flex flex-col ml-2 space-y-8 mb-8 fixed bottom-0">
-        <HighlightedButton linkTo="#">
+        <HighlightedButton linkTo="login">
           <HiOutlineQuestionMarkCircle className="size-6" />
         </HighlightedButton>
-        <HighlightedButton linkTo="#">
+        <HighlightedButton linkTo="login">
           <HiOutlineCog className="size-6" />
         </HighlightedButton>
       </div>

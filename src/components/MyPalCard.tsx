@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Card } from "./ui/card";
+import { Card, CardTitle } from "./ui/card";
 import { MdPets } from "react-icons/md";
 import { FaHourglassHalf } from "react-icons/fa";
 import ProgressBar from "./ProgressBar";
@@ -7,8 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import supabase from "../utils/supabase"; // Import your Supabase client
 import bear from "../assets/bear.svg";
 import bear_happy from "../assets/bear_happy.svg";
-import { useNavigate } from "react-router";
+import bear_sad from "../assets/bear_sad.svg";
 import { useUserData } from "../hooks/User";
+import { useUserConsumptionStatus } from "../hooks/PetHappiness";
+
 // Fetch pet data from Supabase
 const fetchPetData = async (userId: string) => {
   const { data, error } = await supabase
@@ -24,25 +25,31 @@ const fetchPetData = async (userId: string) => {
   return data;
 };
 
-const PetCard = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
-  // Get user ID from session or local storage
-  const {
-    data: user,
-    isError: isUserError,
-    isLoading: isUserLoading,
-  } = useUserData();
-  if (isUserError) console.log(isUserError);
-  if (isUserLoading) console.log(isUserLoading);
-
+const MyPalCard = () => {
+  const { data: user } = useUserData();
   const userId = user?.publicUser.id;
-  // Fetch pet data using TanStack Query
+  const { data: petStatus, isLoading: isPetStatusLoading } =
+    useUserConsumptionStatus(userId);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["petData", userId],
     queryFn: () => fetchPetData(userId),
     enabled: !!userId, // Only fetch if userId exists
   });
+  if (isPetStatusLoading) return <p>Loading...</p>;
+
+  let bearStatusImage = bear;
+  console.log(petStatus);
+  if (isPetStatusLoading) {
+    return <div>Still loading...</div>;
+  }
+  if (petStatus?.status === "HAPPY") {
+    bearStatusImage = bear_happy;
+  } else if (petStatus?.status === "CONTENT") {
+    bearStatusImage = bear;
+  } else if (petStatus?.status === "SAD") {
+    bearStatusImage = bear_sad;
+  }
+  // Fetch pet data using TanStack Query
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching pet data</div>;
@@ -57,8 +64,12 @@ const PetCard = () => {
   const progress = roundedExp / 10; // Convert to progress (e.g., 70 => 7)
 
   return (
-    // <Card className="p-6 rounded-lg shadow-md max-h-fit max-w-fit text-white flex flex-col">
-    <>
+    <Card className="p-6 rounded-lg shadow-md max-h-fit max-w-fit text-white flex flex-col">
+      <CardTitle className="text-center text-3xl text-[#3DFF94]">
+        Lewis, Polar Bear{" "}
+        {petStatus?.user_avg_consumption &&
+          `is spending ${Math.round(petStatus.user_avg_consumption)} kWh`}
+      </CardTitle>
       <div className="flex flex-row gap-6 px-4 justify-center">
         <Card className="bg-[#252525] max-w-fit py-4 px-4">
           <MdPets className="text-3xl text-[#3DFF94]" />
@@ -76,21 +87,14 @@ const PetCard = () => {
         </Card>
       </div>
 
-      <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => navigate("/mypal")}
-        className="transition-transform duration-300 ease-in-out transform hover:scale-110"
-      >
+      <div>
         <img
-          src={isHovered ? bear_happy : bear}
-          alt={isHovered ? "Happy Bear" : "Bear"}
-          className="max-w-[300px] h-[300px] object-contain mx-auto"
+          src={bearStatusImage}
+          className="max-w-[500px] h-[500px] object-contain mx-auto"
         />
       </div>
-    </>
-    // </Card>
+    </Card>
   );
 };
 
-export default PetCard;
+export default MyPalCard;

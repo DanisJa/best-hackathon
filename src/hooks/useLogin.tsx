@@ -8,7 +8,7 @@ export const useLogin = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     const { data, error } = await supabase.auth.signInWithPassword(credentials);
