@@ -3,6 +3,13 @@ https://greenpals.netlify.app
 
 > NOTE: Registration flow is working, but since we didn't have enough time to implement adding devices through the QR code, please use danisjusic@icloud.com:Test123! credentials to view live energy usage, other features are available with new accounts.
 
+## Demo
+Below you can see the prototype of our Figma design, presented by our member - Nijaz:
+https://github.com/user-attachments/assets/6fbcd02c-4783-4e71-ac79-1322d734a559
+
+Below you can see the demo of our application that's deployed:
+[VIDEO PLACEHOLDER]
+
 ## Overview
 GreenPals is an application that helps users manage and track his device energy usage, as well as encourage eco-friendly behaviour. To do this, we designed the system software in 2 parts:
 
