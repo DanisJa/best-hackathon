@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
 import Home from "./pages/Home";
@@ -49,6 +49,7 @@ function App() {
 
           {/* Routes inside Layout */}
           <Route element={<Layout />}>
+            <Route path="/" element={<Navigate to="/home" replace />} />
             <Route
               path="/home"
               element={
