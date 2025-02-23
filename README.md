@@ -47,6 +47,10 @@ We implemented these features with the following list of cron-jobs, running serv
 
 We also implemented a trigger and a function to help the database update the level and restart xp accordingly, as well as add the remaining xp to the next level. This is implemented with `update_eco_pet_level` database function.
 
+## Project Directory Overview
+`/src`: pages, components, mostly regarding frontend
+`/supabase`: serverless functions dir, sometimes left out in `.gitignore`, but I kept it here in case of code review, same as `.env`.
+
 # Installation guide
 
 ## Prerequisites
