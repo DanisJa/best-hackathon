@@ -1,4 +1,5 @@
 # GreenPals
+https://greenpals.netlify.app
 
 > NOTE: Registration flow is working, but since we didn't have enough time to implement adding devices through the QR code, please use danisjusic@icloud.com:Test123! credentials to view live energy usage, other features are available with new accounts.
 
